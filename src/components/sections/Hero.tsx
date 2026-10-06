@@ -9,6 +9,25 @@ import { BlurText } from "@/components/animations/blur-text";
 import { fa } from "@/lib/utils";
 
 export function Hero() {
+  const [repoCount, setRepoCount] = React.useState(16);
+  const [starsCount, setStarsCount] = React.useState(35);
+
+  React.useEffect(() => {
+    let active = true;
+    fetch("https://api.github.com/users/Aporis3674/repos?per_page=100")
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data) && active) {
+          setRepoCount(data.length);
+          const total = data.reduce((acc: number, r: any) => acc + (r.stargazers_count || 0), 0);
+          if (total > 0) setStarsCount(total);
+        }
+      })
+      .catch(() => {});
+    return () => {
+      active = false;
+    };
+  }, []);
   return (
     <section id="hero" className="relative min-h-[85vh] flex items-center justify-center overflow-hidden py-16 px-4">
       {/* والپیپر کیهانی نیمه‌شفاف ارسالی کاربر در پس‌زمینه */}
@@ -74,14 +93,14 @@ export function Hero() {
         <div className="grid grid-cols-3 gap-3 sm:gap-6 w-full max-w-lg mb-8">
           <div className="p-3.5 rounded-xl border border-border/70 bg-card/70 backdrop-blur text-center">
             <div className="text-2xl sm:text-3xl font-extrabold text-foreground tracking-normal font-sans">
-              {fa(16)}
+              {fa(repoCount)}
             </div>
             <div className="text-xs text-muted-foreground mt-1">ریپازیتوری</div>
           </div>
 
           <div className="p-3.5 rounded-xl border border-border/70 bg-card/70 backdrop-blur text-center">
             <div className="text-2xl sm:text-3xl font-extrabold text-amber-400 tracking-normal font-sans flex items-center justify-center gap-1.5">
-              <span>{fa(33)}</span>
+              <span>{fa(starsCount)}</span>
               <img src="/icons/star.png" alt="Star" className="size-5 shrink-0 inline-block drop-shadow-sm" />
             </div>
             <div className="text-xs text-muted-foreground mt-1">ستاره دریافت شده</div>

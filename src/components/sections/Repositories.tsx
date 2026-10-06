@@ -36,7 +36,7 @@ const INITIAL_STARRED_REPOS: RepoItem[] = [
   {
     name: "TelegramFreeRich",
     description: "ویرایشگر متن پیشرفته رایگان برای پیام‌های تلگرام (Free Rich Text Editor for Telegram)",
-    stars: 24,
+    stars: 25,
     forks: 3,
     language: "JavaScript",
     url: "https://github.com/Aporis3674/TelegramFreeRich",
@@ -52,7 +52,7 @@ const INITIAL_STARRED_REPOS: RepoItem[] = [
   {
     name: "apitestllm",
     description: "تست و ارزیابی پاسخ‌دهی و زمان تاخیر API مدل‌های بزرگ زبانی هوش مصنوعی",
-    stars: 1,
+    stars: 2,
     forks: 0,
     language: "Python",
     url: "https://github.com/Aporis3674/apitestllm",
