@@ -26,7 +26,7 @@ export function Hero() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,var(--background)_85%)]" />
       </div>
 
-      <GridBackground size={52} className="opacity-30" />
+      <GridBackground size={56} />
 
       {/* نور محیطی ملایم در پشت هیرو */}
       <div
