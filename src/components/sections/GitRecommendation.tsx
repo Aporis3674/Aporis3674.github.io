@@ -58,8 +58,9 @@ export function GitRecommendation() {
             rel="noopener noreferrer"
           >
             <Button variant="outline" size="sm" className="h-9 text-xs gap-1.5 border-border">
+              <img src="/icons/github-light.png" alt="GitHub" className="size-3.5 shrink-0" />
               <span>گیت‌هاب</span>
-              <ExternalLink className="size-3" />
+              <ExternalLink className="size-3 opacity-60" />
             </Button>
           </a>
           <a
