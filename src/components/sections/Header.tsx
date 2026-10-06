@@ -50,12 +50,15 @@ export function Header() {
         </a>
 
         {/* وسط: ناوبری */}
-        <nav className="hidden md:flex items-center gap-5 text-sm text-muted-foreground">
+        <nav className="hidden md:flex items-center gap-4 lg:gap-5 text-sm text-muted-foreground">
           <a href="#intro" className="hover:text-foreground transition-colors">
             معرفی
           </a>
-          <a href="#learning" className="hover:text-foreground transition-colors">
-            مسیر یادگیری
+          <a href="#roadmap" className="hover:text-foreground transition-colors">
+            نقشه راه
+          </a>
+          <a href="#git-tutorial" className="hover:text-foreground transition-colors">
+            آموزش گیت
           </a>
           <a href="#workspace" className="hover:text-foreground transition-colors">
             محیط کاربری

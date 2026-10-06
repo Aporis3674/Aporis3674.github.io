@@ -90,7 +90,7 @@ export function Hero() {
         </p>
 
         {/* آمار خلاصه با فونت وزیرمتن و آیکون باکیفیت Icons8 */}
-        <div className="grid grid-cols-3 gap-3 sm:gap-6 w-full max-w-lg mb-8">
+        <div className="grid grid-cols-2 gap-4 w-full max-w-sm mb-8">
           <div className="p-3.5 rounded-xl border border-border/70 bg-card/70 backdrop-blur text-center">
             <div className="text-2xl sm:text-3xl font-extrabold text-foreground tracking-normal font-sans">
               {fa(repoCount)}
@@ -104,14 +104,6 @@ export function Hero() {
               <img src="/icons/star.png" alt="Star" className="size-5 shrink-0 inline-block drop-shadow-sm" />
             </div>
             <div className="text-xs text-muted-foreground mt-1">ستاره دریافت شده</div>
-          </div>
-
-          <div className="p-3.5 rounded-xl border border-border/70 bg-card/70 backdrop-blur text-center">
-            <div className="text-2xl sm:text-3xl font-extrabold text-success tracking-normal font-sans flex items-center justify-center gap-1" dir="ltr">
-              <span className="text-xl">+</span>
-              <span>{fa(1)}٪</span>
-            </div>
-            <div className="text-xs text-muted-foreground mt-1">مسیر پایتون</div>
           </div>
         </div>
 

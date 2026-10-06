@@ -2,8 +2,8 @@ import * as React from "react";
 import { Header } from "@/components/sections/Header";
 import { Hero } from "@/components/sections/Hero";
 import { IntroTerminal } from "@/components/sections/IntroTerminal";
-import { LearningProgress } from "@/components/sections/LearningProgress";
 import { RoadmapDiagram } from "@/components/sections/RoadmapDiagram";
+import { GitTutorial } from "@/components/sections/GitTutorial";
 import { Workspace } from "@/components/sections/Workspace";
 import { ContactSection } from "@/components/sections/ContactSection";
 import { FavoriteGames } from "@/components/sections/FavoriteGames";
@@ -22,8 +22,8 @@ export function App() {
       <main className="flex-1 flex flex-col relative z-10">
         <Hero />
         <IntroTerminal />
-        <LearningProgress />
         <RoadmapDiagram />
+        <GitTutorial />
         <Workspace />
         <ContactSection />
         <FavoriteGames />
