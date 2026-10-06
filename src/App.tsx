@@ -3,6 +3,7 @@ import { Header } from "@/components/sections/Header";
 import { Hero } from "@/components/sections/Hero";
 import { IntroTerminal } from "@/components/sections/IntroTerminal";
 import { LearningProgress } from "@/components/sections/LearningProgress";
+import { Workspace } from "@/components/sections/Workspace";
 import { ContactSection } from "@/components/sections/ContactSection";
 import { FavoriteGames } from "@/components/sections/FavoriteGames";
 import { Repositories } from "@/components/sections/Repositories";
@@ -20,6 +21,7 @@ export function App() {
         <Hero />
         <IntroTerminal />
         <LearningProgress />
+        <Workspace />
         <ContactSection />
         <FavoriteGames />
         <Repositories />

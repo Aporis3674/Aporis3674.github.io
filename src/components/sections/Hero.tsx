@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { BorderBeam } from "@/components/animations/border-beam";
 import { GridBackground } from "@/components/backgrounds/grid";
 import { ArrowDown, Send, Terminal, Sparkles } from "lucide-react";
+import { BlurText } from "@/components/animations/blur-text";
 import { fa } from "@/lib/utils";
 
 export function Hero() {
@@ -64,9 +65,9 @@ export function Hero() {
           آپوریس <span className="text-brand font-semibold text-2xl sm:text-3xl font-sans">/ Aporis</span>
         </h1>
 
-        {/* توضیح کوتاه هیرو - دقیقا طبق متن درخواستی کاربر */}
+        {/* توضیح کوتاه هیرو - با انیمیشن ظهور تار BlurText */}
         <p className="text-base sm:text-lg text-muted-foreground max-w-2xl leading-relaxed mb-8 font-medium">
-          علاقه‌مند به دنیای کامپیوتر، برنامه‌نویسی
+          <BlurText text="علاقه‌مند به دنیای کامپیوتر، برنامه‌نویسی" delay={80} />
         </p>
 
         {/* آمار خلاصه با فونت وزیرمتن و آیکون باکیفیت Icons8 */}

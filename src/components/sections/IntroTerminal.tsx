@@ -2,6 +2,7 @@ import * as React from "react";
 import { Terminal, type TerminalLine } from "@/components/animations/terminal";
 import { Badge } from "@/components/ui/badge";
 import { BorderBeam } from "@/components/animations/border-beam";
+import { BlurText } from "@/components/animations/blur-text";
 import { Terminal as TerminalIcon, Sparkles, Code2, Globe, Heart } from "lucide-react";
 
 export function IntroTerminal() {
@@ -66,7 +67,10 @@ export function IntroTerminal() {
 
               <div className="p-4 rounded-xl bg-muted/40 border border-border/80 mb-5">
                 <p className="text-base sm:text-lg font-bold text-foreground leading-relaxed">
-                  درود اسم من آپوریسه، و علاقه‌مند به حوزه کامپیوتر و برنامه‌نویسی و طراحی سایت هستم، در حال حاضر:
+                  <BlurText
+                    text="درود اسم من آپوریسه، و علاقه‌مند به حوزه کامپیوتر و برنامه‌نویسی و طراحی سایت هستم، در حال حاضر:"
+                    delay={60}
+                  />
                 </p>
               </div>
 

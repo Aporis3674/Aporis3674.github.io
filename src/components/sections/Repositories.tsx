@@ -1,105 +1,108 @@
 import * as React from "react";
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { fa, faNumber } from "@/lib/utils";
+import { fa } from "@/lib/utils";
 import {
-  GitFork,
-  Star,
   ExternalLink,
-  Code2,
   FolderGit2,
-  Search,
   Copy,
   Check,
+  RefreshCw,
+  Sparkles,
 } from "lucide-react";
-import { GithubIcon } from "@/components/icons/GithubIcon";
 
 interface RepoItem {
+  id?: number;
   name: string;
   description: string;
   stars: number;
   forks?: number;
   language: string;
-  languageColor: string;
   url: string;
-  isPopular?: boolean;
 }
 
+const LANGUAGE_COLORS: Record<string, string> = {
+  JavaScript: "#f7df1e",
+  TypeScript: "#3178c6",
+  Python: "#3572A5",
+  Shell: "#89e051",
+  HTML: "#e34c26",
+  CSS: "#563d7c",
+};
+
+// اطلاعات اولیه برای بارگذاری سریع تا زمان دریافت زنده از API
+const INITIAL_STARRED_REPOS: RepoItem[] = [
+  {
+    name: "TelegramFreeRich",
+    description: "ویرایشگر متن پیشرفته رایگان برای پیام‌های تلگرام (Free Rich Text Editor for Telegram)",
+    stars: 24,
+    forks: 3,
+    language: "JavaScript",
+    url: "https://github.com/Aporis3674/TelegramFreeRich",
+  },
+  {
+    name: "telegram-to-r2",
+    description: "ربات تلگرام انتقال مستقیم فایل‌ها به فضای ابری ذخیره‌سازی Cloudflare R2",
+    stars: 8,
+    forks: 1,
+    language: "Shell",
+    url: "https://github.com/Aporis3674/telegram-to-r2",
+  },
+  {
+    name: "apitestllm",
+    description: "تست و ارزیابی پاسخ‌دهی و زمان تاخیر API مدل‌های بزرگ زبانی هوش مصنوعی",
+    stars: 1,
+    forks: 0,
+    language: "Python",
+    url: "https://github.com/Aporis3674/apitestllm",
+  },
+];
+
 export function Repositories() {
-  const [filter, setFilter] = React.useState<"all" | "starred" | "python" | "telegram">("all");
+  const [repos, setRepos] = React.useState<RepoItem[]>(INITIAL_STARRED_REPOS);
+  const [loading, setLoading] = React.useState(false);
   const [copiedRepo, setCopiedRepo] = React.useState<string | null>(null);
 
-  const repos: RepoItem[] = [
-    {
-      name: "TelegramFreeRich",
-      description: "ویرایشگر متن پیشرفته رایگان برای پیام‌های تلگرام (Free Rich Text Editor for Telegram)",
-      stars: 24,
-      forks: 3,
-      language: "JavaScript",
-      languageColor: "#f7df1e",
-      url: "https://github.com/Aporis3674/TelegramFreeRich",
-      isPopular: true,
-    },
-    {
-      name: "telegram-to-r2",
-      description: "ربات تلگرام انتقال مستقیم فایل‌ها و مدیاها به فضای ابری ذخیره‌سازی Cloudflare R2",
-      stars: 8,
-      forks: 1,
-      language: "Shell",
-      languageColor: "#89e051",
-      url: "https://github.com/Aporis3674/telegram-to-r2",
-      isPopular: true,
-    },
-    {
-      name: "telegram-helper-bot",
-      description: "دستیار هوش مصنوعی تلگرام با قابلیت جست‌وجوی وب، استدلال و درک کانتکست گروه‌ها",
-      stars: 0,
-      language: "Python",
-      languageColor: "#3572A5",
-      url: "https://github.com/Aporis3674/telegram-helper-bot",
-    },
-    {
-      name: "RVG",
-      description: "پنل مدیریت پروکسی چند پروتکله توسعه یافته با پایتون و FastAPI قابل اجرا روی Railway",
-      stars: 0,
-      language: "Python",
-      languageColor: "#3572A5",
-      url: "https://github.com/Aporis3674/RVG",
-    },
-    {
-      name: "apitestllm",
-      description: "تست و بررسی خروجی‌ها و زمان پاسخ‌دهی API مدل‌های بزرگ زبانی (LLMs)",
-      stars: 1,
-      language: "Python",
-      languageColor: "#3572A5",
-      url: "https://github.com/Aporis3674/apitestllm",
-    },
-    {
-      name: "v01",
-      description: "ربات رابط تلگرام برای بررسی و ثبت پیشنهادات پروموشن Gemini و Google One",
-      stars: 0,
-      language: "Python",
-      languageColor: "#3572A5",
-      url: "https://github.com/Aporis3674/v01",
-    },
-    {
-      name: "pomodorus",
-      description: "ابزار متمرکزسازی زمان کار و برنامه‌نویسی با متدولوژی پرطرفدار پومودورو",
-      stars: 0,
-      language: "TypeScript",
-      languageColor: "#3178c6",
-      url: "https://github.com/Aporis3674/pomodorus",
-    },
-    {
-      name: "Aporis3674.github.io",
-      description: "سورس صفحه شخصی و پورتفولیو توسعه‌دهنده بر روی گیت‌هاب پیجز",
-      stars: 0,
-      language: "React / HTML",
-      languageColor: "#61dafb",
-      url: "https://github.com/Aporis3674/Aporis3674.github.io",
-    },
-  ];
+  React.useEffect(() => {
+    let isMounted = true;
+    const fetchStarredRepos = async () => {
+      try {
+        setLoading(true);
+        const res = await fetch("https://api.github.com/users/Aporis3674/repos?per_page=100");
+        if (!res.ok) return;
+        const data = await res.json();
+        if (Array.isArray(data) && isMounted) {
+          // فقط پروژه‌هایی که استار دارند
+          const starred = data
+            .filter((r: any) => (r.stargazers_count ?? 0) > 0)
+            .sort((a: any, b: any) => b.stargazers_count - a.stargazers_count)
+            .map((r: any) => ({
+              id: r.id,
+              name: r.name,
+              description: r.description || "پروژه منبع‌باز آپوریس در گیت‌هاب",
+              stars: r.stargazers_count,
+              forks: r.forks_count,
+              language: r.language || "کد",
+              url: r.html_url,
+            }));
+
+          if (starred.length > 0) {
+            setRepos(starred);
+          }
+        }
+      } catch {
+        // در صورت عدم دسترسی به اینترنت، از کش اولیه استفاده می‌شود
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    };
+
+    fetchStarredRepos();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const handleCopyClone = (cloneUrl: string, name: string) => {
     navigator.clipboard.writeText(`git clone ${cloneUrl}.git`);
@@ -107,65 +110,42 @@ export function Repositories() {
     setTimeout(() => setCopiedRepo(null), 2000);
   };
 
-  const filteredRepos = repos.filter((r) => {
-    if (filter === "starred") return r.stars > 0;
-    if (filter === "python") return r.language.toLowerCase().includes("python");
-    if (filter === "telegram") return r.name.toLowerCase().includes("telegram");
-    return true;
-  });
+  const totalStars = repos.reduce((sum, r) => sum + r.stars, 0);
 
   return (
     <section id="repos" className="py-16 px-4 max-w-5xl mx-auto">
       {/* هدر بخش ریپازیتوری‌ها */}
       <div className="flex flex-col items-center text-center mb-10">
-        <Badge variant="outline" className="mb-3 text-brand border-brand/30 gap-1.5">
-          <FolderGit2 className="size-3.5" />
-          <span>پروژه‌های متن‌باز</span>
-        </Badge>
+        <div className="flex items-center gap-2 mb-3">
+          <Badge variant="outline" className="text-brand border-brand/30 gap-1.5">
+            <FolderGit2 className="size-3.5" />
+            <span>پروژه‌های متن‌باز</span>
+          </Badge>
+          <span className="inline-flex items-center gap-1.5 text-[11px] text-muted-foreground px-2 py-0.5 rounded-full bg-muted/40 border border-border/60">
+            <span className={`size-1.5 rounded-full ${loading ? "bg-amber-400 animate-ping" : "bg-success"}`} />
+            <span>اتصال زنده به گیت‌هاب</span>
+          </span>
+        </div>
+
         <h2 className="text-2xl sm:text-4xl font-black text-foreground mb-3">
-          ریپازیتوری‌های گیت‌هاب
+          پروژه‌های ستاره‌دار
         </h2>
         <p className="text-sm sm:text-base text-muted-foreground max-w-xl">
-          کدها، پروژه‌های منتشر شده و ابزارهایی که تا کنون توسعه داده‌ام به همراه آمار استارها
+          فهرست پروژه‌هایی که از جامعه گیت‌هاب ستاره دریافت کرده‌اند
         </p>
       </div>
 
-      {/* فیلترهای دسته‌بندی */}
-      <div className="flex flex-wrap items-center justify-between gap-3 mb-8 pb-4 border-b border-border/60">
-        <div className="flex flex-wrap items-center gap-2">
-          <Button
-            variant={filter === "all" ? "default" : "outline"}
-            size="sm"
-            onClick={() => setFilter("all")}
-            className="text-xs h-8"
-          >
-            همه ریپوها ({fa(repos.length)})
-          </Button>
-          <Button
-            variant={filter === "starred" ? "default" : "outline"}
-            size="sm"
-            onClick={() => setFilter("starred")}
-            className="text-xs h-8 gap-1.5"
-          >
-            <img src="/icons/star.png" alt="Star" className="size-3.5 object-contain" />
-            <span>ستاره‌دار</span>
-          </Button>
-          <Button
-            variant={filter === "python" ? "default" : "outline"}
-            size="sm"
-            onClick={() => setFilter("python")}
-            className="text-xs h-8"
-          >
-            پایتون (Python)
-          </Button>
-          <Button
-            variant={filter === "telegram" ? "default" : "outline"}
-            size="sm"
-            onClick={() => setFilter("telegram")}
-            className="text-xs h-8"
-          >
-            ربات‌های تلگرام
-          </Button>
+      {/* نوار آمار ستاره‌ها و لینک گیت‌هاب */}
+      <div className="flex items-center justify-between pb-4 mb-6 border-b border-border/60">
+        <div className="flex items-center gap-2">
+          <span className="text-xs text-muted-foreground">تعداد پروژه‌های ستاره‌دار:</span>
+          <span className="text-xs font-bold text-foreground font-sans">{fa(repos.length)}</span>
+          <span className="text-muted-foreground/40">•</span>
+          <span className="text-xs text-muted-foreground">مجموع ستاره‌ها:</span>
+          <span className="text-xs font-bold text-brand font-sans flex items-center gap-1">
+            <img src="/icons/star.png" alt="Star" className="size-3.5 object-contain inline-block" />
+            <span>{fa(totalStars)}</span>
+          </span>
         </div>
 
         <a
@@ -174,18 +154,18 @@ export function Repositories() {
           rel="noopener noreferrer"
         >
           <Button variant="ghost" size="sm" className="text-xs gap-1 text-muted-foreground hover:text-foreground">
-            <span>مشاهده همه در گیت‌هاب</span>
+            <span>مشاهده در گیت‌هاب</span>
             <ExternalLink className="size-3" />
           </Button>
         </a>
       </div>
 
-      {/* شبکه کارت‌های ریپازیتوری */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {filteredRepos.map((repo) => (
+      {/* کارت‌های پروژه‌های دارای استار */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {repos.map((repo) => (
           <Card
             key={repo.name}
-            className="p-5 flex flex-col justify-between hover:border-brand/40 transition-all duration-200 group bg-card/80 hover:bg-card"
+            className="p-5 flex flex-col justify-between hover:border-brand/50 transition-all duration-200 group bg-card/90 hover:bg-card shadow-lg"
           >
             <div>
               {/* بالای کارت: نام ریپو و تعداد استارها */}
@@ -202,8 +182,8 @@ export function Repositories() {
                   </span>
                 </a>
 
-                {/* آیکون استار با ارقام فارسی وزیرمتن */}
-                <div className="flex items-center gap-1.5 shrink-0 px-2 py-0.5 rounded-md bg-muted/70 border border-border/80">
+                {/* استار با ارقام فارسی وزیرمتن و آیکون Icons8 */}
+                <div className="flex items-center gap-1.5 shrink-0 px-2 py-0.5 rounded-md bg-muted/80 border border-border/80">
                   <img
                     src="/icons/star.png"
                     alt="Star"
@@ -216,7 +196,7 @@ export function Repositories() {
               </div>
 
               {/* توضیحات ریپو */}
-              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-4 line-clamp-2">
+              <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mb-4 line-clamp-3">
                 {repo.description}
               </p>
             </div>
@@ -227,7 +207,7 @@ export function Repositories() {
               <div className="flex items-center gap-2">
                 <span
                   className="size-2.5 rounded-full inline-block"
-                  style={{ backgroundColor: repo.languageColor }}
+                  style={{ backgroundColor: LANGUAGE_COLORS[repo.language] || "#3b82f6" }}
                 />
                 <span className="text-xs font-mono text-muted-foreground" dir="ltr">
                   {repo.language}
@@ -238,7 +218,7 @@ export function Repositories() {
               <div className="flex items-center gap-1.5">
                 <button
                   onClick={() => handleCopyClone(repo.url, repo.name)}
-                  className="p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors text-xs flex items-center gap-1"
+                  className="p-1.5 text-muted-foreground hover:text-foreground hover:bg-muted rounded transition-colors text-xs flex items-center gap-1 cursor-pointer"
                   title="کپی دستور کلون گیت"
                 >
                   {copiedRepo === repo.name ? (

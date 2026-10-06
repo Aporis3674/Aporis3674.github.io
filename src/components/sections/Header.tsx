@@ -50,12 +50,18 @@ export function Header() {
         </a>
 
         {/* وسط: ناوبری */}
-        <nav className="hidden md:flex items-center gap-6 text-sm text-muted-foreground">
+        <nav className="hidden md:flex items-center gap-5 text-sm text-muted-foreground">
           <a href="#intro" className="hover:text-foreground transition-colors">
             معرفی
           </a>
           <a href="#learning" className="hover:text-foreground transition-colors">
             مسیر یادگیری
+          </a>
+          <a href="#workspace" className="hover:text-foreground transition-colors">
+            محیط کاربری
+          </a>
+          <a href="#contact" className="hover:text-foreground transition-colors">
+            ارتباط
           </a>
           <a href="#games" className="hover:text-foreground transition-colors">
             بازی‌ها
@@ -63,13 +69,20 @@ export function Header() {
           <a href="#repos" className="hover:text-foreground transition-colors">
             ریپازیتوری‌ها
           </a>
-          <a href="#contact" className="hover:text-foreground transition-colors">
-            ارتباط
-          </a>
         </nav>
 
         {/* چپ: دکمه‌های اقدام سریع با آیکون‌های رسمی Icons8 */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          <a
+            href="https://youtube.com/@Rivenixi"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="چنل یوتیوب Rivenixi"
+          >
+            <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground">
+              <img src="/icons/youtube.png" alt="YouTube" className="size-4 shrink-0" />
+            </Button>
+          </a>
           <a
             href="https://github.com/Aporis3674"
             target="_blank"
