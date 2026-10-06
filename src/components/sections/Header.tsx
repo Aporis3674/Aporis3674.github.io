@@ -57,7 +57,13 @@ export function Header() {
           <a href="#roadmap" className="hover:text-foreground transition-colors">
             نقشه راه
           </a>
-          <a href="#git-tutorial" className="hover:text-foreground transition-colors">
+          <a
+            href="https://parsabordbar.github.io/get-git/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-brand transition-colors"
+            title="آموزش گیت (Get-Git اثر پارسا بردبار)"
+          >
             آموزش گیت
           </a>
           <a href="#workspace" className="hover:text-foreground transition-colors">

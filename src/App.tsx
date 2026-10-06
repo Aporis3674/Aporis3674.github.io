@@ -3,8 +3,8 @@ import { Header } from "@/components/sections/Header";
 import { Hero } from "@/components/sections/Hero";
 import { IntroTerminal } from "@/components/sections/IntroTerminal";
 import { RoadmapDiagram } from "@/components/sections/RoadmapDiagram";
-import { GitTutorial } from "@/components/sections/GitTutorial";
 import { Workspace } from "@/components/sections/Workspace";
+import { GitRecommendation } from "@/components/sections/GitRecommendation";
 import { ContactSection } from "@/components/sections/ContactSection";
 import { FavoriteGames } from "@/components/sections/FavoriteGames";
 import { Repositories } from "@/components/sections/Repositories";
@@ -23,8 +23,8 @@ export function App() {
         <Hero />
         <IntroTerminal />
         <RoadmapDiagram />
-        <GitTutorial />
         <Workspace />
+        <GitRecommendation />
         <ContactSection />
         <FavoriteGames />
         <Repositories />
