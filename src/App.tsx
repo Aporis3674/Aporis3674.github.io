@@ -10,6 +10,7 @@ import { FavoriteGames } from "@/components/sections/FavoriteGames";
 import { Repositories } from "@/components/sections/Repositories";
 import { Footer } from "@/components/sections/Footer";
 import { RetroGridBackground } from "@/components/backgrounds/retro-grid";
+import { CatEasterEgg } from "@/components/ui/cat-easter-egg";
 
 export function App() {
   return (
@@ -36,6 +37,9 @@ export function App() {
 
       {/* فوتر */}
       <Footer />
+
+      {/* ایستر اگ گربه */}
+      <CatEasterEgg />
     </div>
   );
 }
