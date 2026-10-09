@@ -11,6 +11,7 @@ import {
   RefreshCw,
   Sparkles,
 } from "lucide-react";
+import { GitHubContributions } from "@/components/sections/GitHubContributions";
 
 interface RepoItem {
   id?: number;
@@ -134,6 +135,9 @@ export function Repositories() {
           فهرست پروژه‌هایی که از جامعه گیت‌هاب ستاره دریافت کرده‌اند
         </p>
       </div>
+
+      {/* گراف تقویم فعالیت‌های زنده گیت‌هاب */}
+      <GitHubContributions />
 
       {/* نوار آمار ستاره‌ها و لینک گیت‌هاب */}
       <div className="flex items-center justify-between pb-4 mb-6 border-b border-border/60">
