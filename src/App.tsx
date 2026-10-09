@@ -8,6 +8,7 @@ import { GitRecommendation } from "@/components/sections/GitRecommendation";
 import { ContactSection } from "@/components/sections/ContactSection";
 import { FavoriteGames } from "@/components/sections/FavoriteGames";
 import { Repositories } from "@/components/sections/Repositories";
+import { Contributors } from "@/components/sections/Contributors";
 import { Footer } from "@/components/sections/Footer";
 import { RetroGridBackground } from "@/components/backgrounds/retro-grid";
 import { CatEasterEgg } from "@/components/ui/cat-easter-egg";
@@ -28,6 +29,7 @@ export function App() {
         <ContactSection />
         <FavoriteGames />
         <Repositories />
+        <Contributors />
       </main>
 
       {/* پس‌زمینه شبکه‌ای پرسپکتیو در انتهای صفحه برای استایل مدرن VibeFarsi */}
