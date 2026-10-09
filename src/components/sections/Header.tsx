@@ -2,8 +2,7 @@ import * as React from "react";
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Send, Sparkles } from "lucide-react";
-import { GithubIcon } from "@/components/icons/GithubIcon";
+import { GithubIcon, TelegramIcon, YoutubeIcon } from "@/components/icons/GithubIcon";
 
 export function Header() {
   const [scrolled, setScrolled] = React.useState(false);
@@ -80,7 +79,7 @@ export function Header() {
           </a>
         </nav>
 
-        {/* چپ: دکمه‌های اقدام سریع با آیکون‌های رسمی Icons8 */}
+        {/* چپ: دکمه‌های شبکه با استایل کاملاً هماهنگ و یکدست */}
         <div className="flex items-center gap-1.5 sm:gap-2">
           <a
             href="https://youtube.com/@Rivenixi"
@@ -88,8 +87,12 @@ export function Header() {
             rel="noopener noreferrer"
             title="چنل یوتیوب Rivenixi"
           >
-            <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground">
-              <img src="/icons/youtube.png" alt="YouTube" className="size-4 shrink-0" />
+            <Button
+              variant="outline"
+              size="icon"
+              className="size-9 rounded-xl border-border/70 bg-card/60 text-muted-foreground hover:text-foreground hover:border-brand/40 hover:bg-muted/60 transition-all cursor-pointer"
+            >
+              <YoutubeIcon className="size-4" />
             </Button>
           </a>
           <a
@@ -98,8 +101,12 @@ export function Header() {
             rel="noopener noreferrer"
             title="گیت‌هاب آپوریس"
           >
-            <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground">
-              <img src="/icons/github-light.png" alt="GitHub" className="size-4 shrink-0" />
+            <Button
+              variant="outline"
+              size="icon"
+              className="size-9 rounded-xl border-border/70 bg-card/60 text-muted-foreground hover:text-foreground hover:border-brand/40 hover:bg-muted/60 transition-all cursor-pointer"
+            >
+              <GithubIcon className="size-4" />
             </Button>
           </a>
           <a
@@ -108,8 +115,12 @@ export function Header() {
             rel="noopener noreferrer"
             title="ارسال پیام در تلگرام"
           >
-            <Button variant="brand" size="sm" className="hidden sm:inline-flex items-center text-xs px-4">
-              <span>ارتباط در تلگرام</span>
+            <Button
+              variant="outline"
+              size="icon"
+              className="size-9 rounded-xl border-border/70 bg-card/60 text-muted-foreground hover:text-foreground hover:border-brand/40 hover:bg-muted/60 transition-all cursor-pointer"
+            >
+              <TelegramIcon className="size-4" />
             </Button>
           </a>
         </div>
