@@ -26,7 +26,7 @@ export function Header() {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         {/* راست: آواتار و نام کاربر */}
         <a href="#hero" className="flex items-center gap-3 group">
-          <div className="relative">
+          <div className="relative inline-flex shrink-0">
             <Avatar
               name="Aporis"
               src="https://avatars.githubusercontent.com/u/233422463?v=4"
@@ -34,7 +34,7 @@ export function Header() {
               className="border-2 border-border/80 group-hover:border-brand transition-colors"
             />
             <span
-              className="absolute -bottom-0.5 -start-0.5 size-3 rounded-full bg-success ring-2 ring-background animate-pulse"
+              className="absolute bottom-0.5 start-0.5 size-2.5 rounded-full bg-success ring-2 ring-background"
               title="آنلاین و آماده یادگیری"
             />
           </div>
