@@ -168,12 +168,15 @@ export function RoadmapDiagram() {
         </div>
       </div>
 
-      {/* بوم فلوچارت درختی */}
-      <div className="relative py-10 px-4 sm:px-8 bg-card/60 rounded-3xl border border-border shadow-2xl">
-        {/* خط اتصال پیوسته مرکزی (عمودی) */}
+      {/* بوم فلوچارت درختی با محور کاملاً مرکزی */}
+      <div
+        className="relative py-12 px-4 sm:px-8 bg-card/60 rounded-3xl border border-border shadow-2xl overflow-hidden"
+        dir="ltr"
+      >
+        {/* خط اتصال پیوسته مرکزی (عمود و دقیقاً وسط محور ۵۰٪) */}
         <div
           aria-hidden
-          className="absolute inset-y-12 start-1/2 -translate-x-1/2 w-0.5 bg-gradient-to-b from-[#ffe599] via-brand to-border/30 hidden md:block"
+          className="absolute inset-y-12 left-1/2 -translate-x-1/2 w-0.5 bg-gradient-to-b from-[#ffe599] via-brand to-border/30 hidden md:block z-0"
         />
 
         <div className="flex flex-col gap-12 relative z-10">
@@ -182,112 +185,86 @@ export function RoadmapDiagram() {
             const isDone = step.status === "done";
             const isCurrent = step.status === "current";
 
+            const renderTopics = () => (
+              <div className="w-full max-w-sm flex flex-col gap-2">
+                {step.topics.map((t, tIdx) => (
+                  <div
+                    key={tIdx}
+                    className={cn(
+                      "flex items-center justify-between px-3.5 py-2 rounded-xl border text-xs sm:text-sm font-mono transition-all",
+                      t.status === "done" && "bg-card border-border/80 text-foreground/90 hover:border-emerald-500/40",
+                      t.status === "current" && "bg-brand/10 border-brand text-foreground font-semibold shadow-[0_0_12px_rgba(56,189,248,0.25)]",
+                      t.status === "next" && "bg-muted/30 border-border/40 text-muted-foreground"
+                    )}
+                  >
+                    <span className="truncate">{t.title}</span>
+                    <span
+                      className={cn(
+                        "size-5 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0 ms-2",
+                        t.status === "done" && "bg-emerald-500/20 text-emerald-400 border border-emerald-500/40",
+                        t.status === "current" && "bg-brand text-brand-foreground shadow-[0_0_8px_rgba(56,189,248,0.6)] animate-pulse",
+                        t.status === "next" && "bg-muted border border-border text-muted-foreground"
+                      )}
+                    >
+                      {t.status === "done" ? "✓" : t.status === "current" ? "●" : "○"}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            );
+
             return (
               <div
                 key={step.id}
-                className="flex flex-col md:flex-row items-center justify-center gap-4 sm:gap-8 relative"
+                className="flex flex-col md:grid md:grid-cols-[1fr_auto_1fr] items-center gap-4 md:gap-0 relative"
               >
-                {/* شاخه‌های سمت چپ (دسکتاپ) */}
-                <div
-                  className={cn(
-                    "w-full md:w-[42%] flex flex-col gap-2 relative",
-                    !isLeft && "md:order-1 order-2 md:opacity-0 md:pointer-events-none hidden md:flex",
-                    isLeft && "order-2 md:order-1 items-center md:items-end"
-                  )}
-                >
-                  {isLeft && (
-                    <div className="w-full max-w-sm flex flex-col gap-2 relative">
-                      {/* خط‌چین افقی متصل‌کننده به مرکز در دسکتاپ */}
+                {/* ستون چپ (در دسکتاپ دقیقاً 1fr) */}
+                <div className="hidden md:flex items-center justify-end w-full">
+                  {isLeft ? (
+                    <>
+                      {renderTopics()}
                       <div
                         aria-hidden
-                        className="absolute top-1/2 -end-8 w-8 border-t-2 border-dashed border-border/80 hidden md:block pointer-events-none"
+                        className="w-8 border-t-2 border-dashed border-border/80 shrink-0"
                       />
-
-                      {step.topics.map((t, tIdx) => (
-                        <div
-                          key={tIdx}
-                          className={cn(
-                            "flex items-center justify-between px-3.5 py-2 rounded-xl border text-xs sm:text-sm font-mono transition-all",
-                            t.status === "done" && "bg-card border-border/80 text-foreground/90 hover:border-emerald-500/40",
-                            t.status === "current" && "bg-brand/10 border-brand text-foreground font-semibold shadow-[0_0_12px_rgba(56,189,248,0.25)]",
-                            t.status === "next" && "bg-muted/30 border-border/40 text-muted-foreground"
-                          )}
-                          dir="ltr"
-                        >
-                          <span className="truncate">{t.title}</span>
-                          <span
-                            className={cn(
-                              "size-5 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0 ms-2",
-                              t.status === "done" && "bg-emerald-500/20 text-emerald-400 border border-emerald-500/40",
-                              t.status === "current" && "bg-brand text-brand-foreground shadow-[0_0_8px_rgba(56,189,248,0.6)] animate-pulse",
-                              t.status === "next" && "bg-muted border border-border text-muted-foreground"
-                            )}
-                          >
-                            {t.status === "done" ? "✓" : t.status === "current" ? "●" : "○"}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
+                    </>
+                  ) : (
+                    <div className="w-full" />
                   )}
                 </div>
 
-                {/* گره اصلی مرکزی */}
-                <div className="shrink-0 relative z-20 order-1 md:order-2 my-1">
+                {/* گره اصلی مرکزی (دقیقاً سوار بر خط وسط) */}
+                <div className="z-20 justify-self-center my-1 shrink-0">
                   <div
                     className={cn(
-                      "px-6 py-2.5 rounded-xl font-bold font-mono text-sm sm:text-base border-2 shadow-lg transition-transform hover:scale-105 select-none text-center",
+                      "min-w-[150px] px-6 py-2.5 rounded-xl font-bold font-mono text-sm sm:text-base border-2 shadow-lg transition-transform hover:scale-105 select-none text-center",
                       isDone && "bg-[#ffe599] text-black border-black shadow-[0_4px_16px_rgba(255,229,153,0.3)]",
                       isCurrent && "bg-brand text-brand-foreground border-white/80 shadow-[0_0_20px_rgba(56,189,248,0.5)] animate-pulse",
                       !isDone && !isCurrent && "bg-card text-muted-foreground border-border/80"
                     )}
-                    dir="ltr"
                   >
                     {step.name}
                   </div>
                 </div>
 
-                {/* شاخه‌های سمت راست (دسکتاپ) */}
-                <div
-                  className={cn(
-                    "w-full md:w-[42%] flex flex-col gap-2 relative",
-                    isLeft && "md:order-3 order-3 md:opacity-0 md:pointer-events-none hidden md:flex",
-                    !isLeft && "order-2 md:order-3 items-center md:items-start"
-                  )}
-                >
-                  {!isLeft && (
-                    <div className="w-full max-w-sm flex flex-col gap-2 relative">
-                      {/* خط‌چین افقی متصل‌کننده به مرکز در دسکتاپ */}
+                {/* ستون راست (در دسکتاپ دقیقاً 1fr) */}
+                <div className="hidden md:flex items-center justify-start w-full">
+                  {!isLeft ? (
+                    <>
                       <div
                         aria-hidden
-                        className="absolute top-1/2 -start-8 w-8 border-t-2 border-dashed border-border/80 hidden md:block pointer-events-none"
+                        className="w-8 border-t-2 border-dashed border-border/80 shrink-0"
                       />
-
-                      {step.topics.map((t, tIdx) => (
-                        <div
-                          key={tIdx}
-                          className={cn(
-                            "flex items-center justify-between px-3.5 py-2 rounded-xl border text-xs sm:text-sm font-mono transition-all",
-                            t.status === "done" && "bg-card border-border/80 text-foreground/90 hover:border-emerald-500/40",
-                            t.status === "current" && "bg-brand/10 border-brand text-foreground font-semibold shadow-[0_0_12px_rgba(56,189,248,0.25)]",
-                            t.status === "next" && "bg-muted/30 border-border/40 text-muted-foreground"
-                          )}
-                          dir="ltr"
-                        >
-                          <span className="truncate">{t.title}</span>
-                          <span
-                            className={cn(
-                              "size-5 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0 ms-2",
-                              t.status === "done" && "bg-emerald-500/20 text-emerald-400 border border-emerald-500/40",
-                              t.status === "current" && "bg-brand text-brand-foreground shadow-[0_0_8px_rgba(56,189,248,0.6)] animate-pulse",
-                              t.status === "next" && "bg-muted border border-border text-muted-foreground"
-                            )}
-                          >
-                            {t.status === "done" ? "✓" : t.status === "current" ? "●" : "○"}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
+                      {renderTopics()}
+                    </>
+                  ) : (
+                    <div className="w-full" />
                   )}
+                </div>
+
+                {/* در موبایل: موضوعات زیر باکس مرکزی قرار می‌گیرند */}
+                <div className="flex md:hidden w-full justify-center">
+                  {renderTopics()}
                 </div>
               </div>
             );
