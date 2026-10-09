@@ -104,19 +104,16 @@ export function RoadmapDiagram() {
     <section id="roadmap" className="py-16 px-4 max-w-5xl mx-auto">
       {/* هدر بخش نقشه راه */}
       <div className="flex flex-col items-center text-center mb-8">
-        <div className="flex items-center gap-2 mb-3">
-          <Badge variant="outline" className="text-brand border-brand/30 gap-1.5 font-mono" dir="ltr">
-            <Compass className="size-3.5" />
-            <span>Frontend Pathway</span>
-          </Badge>
-          <span className="text-xs text-muted-foreground">• فلوچارت نقشه راه</span>
-        </div>
+        <Badge variant="outline" className="mb-3 text-brand border-brand/30 gap-1.5">
+          <Compass className="size-3.5" />
+          <span>نقشه راه یادگیری</span>
+        </Badge>
 
         <h2 className="text-2xl sm:text-4xl font-black text-foreground mb-3">
-          Frontend Developer Roadmap
+          مسیر توسعه‌دهنده فرانت‌اند
         </h2>
         <p className="text-sm sm:text-base text-muted-foreground max-w-xl mb-6">
-          مسیر مهارت‌های فرانت‌اند طبق فلوچارت رسمی؛ مباحث تکمیل‌شده با تیک سبز مشخص شده‌اند.
+          فلوچارت گام‌به‌گام مهارت‌های فرانت‌اند؛ مباحث تکمیل‌شده با تیک سبز مشخص شده‌اند.
         </p>
 
         {/* نوار پیشرفت نقشه راه */}
