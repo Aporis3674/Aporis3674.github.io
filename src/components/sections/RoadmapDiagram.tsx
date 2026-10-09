@@ -2,7 +2,7 @@ import * as React from "react";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { cn, fa, faPercent } from "@/lib/utils";
-import { Compass } from "lucide-react";
+import { Compass, Check } from "lucide-react";
 
 interface SubTopic {
   title: string;
@@ -145,25 +145,27 @@ export function RoadmapDiagram() {
           </div>
         </div>
 
-        {/* راهنمای وضعیت‌ها */}
-        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 mt-3 p-2 px-5 rounded-2xl bg-card/60 border border-border text-xs">
-          <div className="flex items-center gap-2">
-            <span className="size-4 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 flex items-center justify-center text-[10px] font-bold">
-              ✓
+        {/* راهنمای وضعیت‌ها با تراز عمودی دقیق */}
+        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 mt-3 py-2 px-5 rounded-2xl bg-card/60 border border-border text-xs select-none">
+          <div className="inline-flex items-center gap-2">
+            <span className="size-4.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 flex items-center justify-center shrink-0">
+              <Check className="size-2.5 stroke-[3]" />
             </span>
-            <span className="text-muted-foreground font-medium">یاد گرفته شده</span>
+            <span className="text-muted-foreground font-medium leading-none">یاد گرفته شده</span>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="size-4 rounded-full bg-brand/20 text-brand border border-brand/50 flex items-center justify-center text-[8px] animate-pulse">
-              ●
+
+          <div className="inline-flex items-center gap-2">
+            <span className="size-4.5 rounded-full bg-brand/20 border border-brand/50 flex items-center justify-center shrink-0 animate-pulse">
+              <span className="size-1.5 rounded-full bg-brand" />
             </span>
-            <span className="text-brand font-semibold">در دست یادگیری</span>
+            <span className="text-brand font-semibold leading-none">در دست یادگیری</span>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="size-4 rounded-full bg-muted border border-border flex items-center justify-center text-[8px] text-muted-foreground">
-              ○
+
+          <div className="inline-flex items-center gap-2">
+            <span className="size-4.5 rounded-full bg-muted/40 border border-border flex items-center justify-center shrink-0">
+              <span className="size-1.5 rounded-full border border-muted-foreground/60" />
             </span>
-            <span className="text-muted-foreground">گام‌های بعدی</span>
+            <span className="text-muted-foreground font-medium leading-none">گام‌های بعدی</span>
           </div>
         </div>
       </div>
@@ -200,13 +202,19 @@ export function RoadmapDiagram() {
                     <span className="truncate">{t.title}</span>
                     <span
                       className={cn(
-                        "size-5 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0 ms-2",
+                        "size-5 rounded-full flex items-center justify-center shrink-0 ms-2",
                         t.status === "done" && "bg-emerald-500/20 text-emerald-400 border border-emerald-500/40",
                         t.status === "current" && "bg-brand text-brand-foreground shadow-[0_0_8px_rgba(56,189,248,0.6)] animate-pulse",
-                        t.status === "next" && "bg-muted border border-border text-muted-foreground"
+                        t.status === "next" && "bg-muted/40 border border-border"
                       )}
                     >
-                      {t.status === "done" ? "✓" : t.status === "current" ? "●" : "○"}
+                      {t.status === "done" ? (
+                        <Check className="size-3 stroke-[3]" />
+                      ) : t.status === "current" ? (
+                        <span className="size-1.5 rounded-full bg-white" />
+                      ) : (
+                        <span className="size-1.5 rounded-full border border-muted-foreground/60" />
+                      )}
                     </span>
                   </div>
                 ))}
