@@ -10,16 +10,6 @@ export function Contributors() {
       src: "https://avatars.githubusercontent.com/u/309331631?v=4",
       url: "https://github.com/mighro",
     },
-    {
-      name: "fwqaaq",
-      src: "https://avatars.githubusercontent.com/u/87041771?v=4",
-      url: "https://github.com/fwqaaq",
-    },
-    {
-      name: "yazdanctx",
-      src: "https://avatars.githubusercontent.com/u/152912648?v=4",
-      url: "https://github.com/yazdanctx",
-    },
   ];
 
   return (
@@ -47,11 +37,8 @@ export function Contributors() {
         </div>
 
         {/* سمت چپ: آواتارهای هاوردار با انیمیشن فنری VibeFarsi */}
-        <div className="flex flex-col items-center sm:items-end gap-2 shrink-0">
+        <div className="flex items-center shrink-0">
           <AvatarHover people={contributors} size="lg" lift={10} />
-          <span className="text-[11px] font-mono text-muted-foreground mt-1" dir="ltr">
-            Hover to view profile
-          </span>
         </div>
       </div>
     </section>
